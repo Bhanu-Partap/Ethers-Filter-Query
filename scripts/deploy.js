@@ -35,15 +35,14 @@ const main = async () => {
     // console.log(eventSignature)
     // console.log('-------------')
 
-    const filter = {
-        address: process.env.ADDRESS_MY,
-        topics: [
-            ethers.utils.id(0x4fba4607),
+    const eventSignature= '"Transfer(address,address,uint256)"';
+    const eventTopic   = ethers.utils.id(eventSignature);
 
-        ],
-        type :"Transfer",
-        fromBlock: 44864444,
-        toBlock: 44864744	,
+    const filter = {
+        address: process.env.CONTRACT_ADDRESS,
+        topics: [ethers.utils.id(eventTopic),],
+        fromBlock: 44864744 ,
+        toBlock: 44894181	,
     };
 
     const logs = await provider.getLogs(filter);
