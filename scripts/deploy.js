@@ -76,9 +76,9 @@ async function main(){
   // const getBlock = await provider.getBlock(19132084)  // For block tx
       // const network = await provider.getNetwork();
       // console.log(network);
-  // const getBlockTrx = await provider.getBlockWithTransactions(19132084)
-  console.log(getBlock.hash);
-  // console.log(getBlockTrx);
+  const getBlockTrx = await provider.getBlockWithTransactions(19132084)
+  // console.log(getBlock.hash);
+  console.log(getBlockTrx);
 
 
 
