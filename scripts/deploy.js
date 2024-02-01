@@ -64,28 +64,26 @@
 
   
 const ethers = require("ethers");
-const usdtAbi = require("../USDT.json")
+// const usdtAbi = require("../USDT.json")
 require('dotenv').config()
-const { JsonRpcProvider } = require("ethers");
-
 
 async function main(){
-  // const usdtAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
-  const provider = new JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571",{
-    network: "polygon-mumbai"
-  })
+  // const usdtAddress = process.env.USDT_ADDRESS;
+  const provider = new ethers.providers.InfuraProvider("homestead",process.env.PROJECT_ID)
+  await provider.getTransactionReceipt("0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a")
+  
 
-  const contract = new ethers.Contract("0xdAC17F958D2ee523a2206206994597C13D831ec7",usdtAbi, provider);
-  contract.on("Transfer",(from, to , value, event)=>{
-    let info ={
-      from,
-      to,
-      value : ethers.utils.formatUnits(value, 6),
-      event,
-    }
-    // console.log(JSON.stringify(info,null , 4));
-    console.log(info);
-  })
+  // const contract = new ethers.Contract(usdtAddress,usdtAbi, provider);
+  // contract.on("Transfer",(from, to , value, event)=>{
+  //   let info ={
+  //     from : from,
+  //     to : to,
+  //     value : ethers.utils.formatUnits(value, 6),
+  //     data : event,
+  //   }
+  //   // console.log(JSON.stringify(info,null , 4));
+  //   console.log(info);
+  // })
 
 }
 
