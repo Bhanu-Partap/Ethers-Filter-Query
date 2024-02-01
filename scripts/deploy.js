@@ -171,22 +171,23 @@ require('dotenv').config()
           if(getBlockTrx.transactions.length) {
             getBlockTrx.transactions.forEach(async(txn)=> {
               const hash = txn.hash;
+              provider.waitForTransaction(hash);
                
-              const AllLog = await provider.getTransactionReceipt(hash);
+              // const AllLog = await provider.getTransactionReceipt(hash);
               
-              const sig = 'Transfer(address,address,uint256)'
-              if(AllLog.logs.length) {
-                AllLog.logs.forEach(async(log)=> {
-                  const utils = ethers.utils;
-                  const sigByte = utils.keccak256(utils.toUtf8Bytes(sig));
-                  // console.log(sigByte);
-                  // console.log(log.topics[0]);
-                  if(sigByte ==log.topics[0]){
-                    // const bihno = utils.defaultAbiCoder.decode(['uint256'],'0x0000000000000000000000000000000000000000000000008ac7230489e80000')[0].toString();
+              // const sig = 'Transfer(address,address,uint256)'
+              // if(AllLog.logs.length) {
+              //   AllLog.logs.forEach(async(log)=> {
+              //     const utils = ethers.utils;
+              //     const sigByte = utils.keccak256(utils.toUtf8Bytes(sig));
+              //     // console.log(sigByte);
+              //     // console.log(log.topics[0]);
+              //     if(sigByte ==log.topics[0]){
+              //       // const bihno = utils.defaultAbiCoder.decode(['uint256'],'0x0000000000000000000000000000000000000000000000008ac7230489e80000')[0].toString();
                     
-                    console.log(txn);
-                  }
-                })}
+              //       console.log(txn);
+              //     }
+              //   })}
   
             });
           }
