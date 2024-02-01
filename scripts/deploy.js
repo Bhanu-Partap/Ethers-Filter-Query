@@ -1,5 +1,5 @@
-// const ethers = require("ethers")
-// require('dotenv').config()
+const ethers = require("ethers")
+require('dotenv').config()
 
 
 // // ie: -> Flash(address,address,uint256,uint256,uint256,uint256)
@@ -63,34 +63,33 @@
 
 
   
-const ethers = require("ethers");
-require('dotenv').config()
+// ==================================================================================================================================================================================================
 
-async function main(){
-  // const provider = new ethers.providers.InfuraProvider("homestead",process.env.PROJECT_ID)
-      const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
+// async function main(){
+//   // const provider = new ethers.providers.InfuraProvider("homestead",process.env.PROJECT_ID)
+//       const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
 
-  // const receipt = await provider.getTransactionReceipt("0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a")
-  // console.log(receipt);
+//   // const receipt = await provider.getTransactionReceipt("0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a")
+//   // console.log(receipt);
 
-  // const getBlock = await provider.getBlock(19132084)  // For block tx
-      // const network = await provider.getNetwork();
-      // console.log(network);
-  const getBlockTrx = await provider.getBlockWithTransactions(19132084)
-  // console.log(getBlock.hash);
-  console.log(getBlockTrx);
-
+//   // const getBlock = await provider.getBlock(19132084)  // For block tx
+//       // const network = await provider.getNetwork();
+//       // console.log(network);
+//   const getBlockTrx = await provider.getBlockWithTransactions(19132084)
+//   // console.log(getBlock.hash);
+//   console.log(getBlockTrx);
 
 
-  // const signedTransaction = "0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a"
-  // await provider.sendTransaction(signedTransaction)
-  // console.log(signedTransaction);
 
+//   // const signedTransaction = "0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a"
+//   // await provider.sendTransaction(signedTransaction)
+//   // console.log(signedTransaction);
 
 
 
 
-}
+
+// }
 
 // main()
 
@@ -132,12 +131,14 @@ async function main(){
 
 //           const sig = 'Transfer(address,address,uint256)'
 
-//           // if(a.logs.length) {
-//           //   a.logs.forEach(async(event)=> {
-//           //     const utils = ethers.utils;
-//           //     const  = keccak256(utils.toUtf8Bytes(sig));
-//           //     if(sig == )
-//           //   })}
+//           if(a.logs.length) {
+//             a.logs.forEach(async(event)=> {
+//               const utils = ethers.utils;
+//               const fnSelector  = keccak256(utils.toUtf8Bytes(sig));
+//               if(sig == fnSelector ){
+
+//               }
+//             })}
 
 //         });
 //       }
@@ -156,4 +157,41 @@ async function main(){
 //     console.log(bihno);  
 //     }
 
-//     getPastEvents(45413270,45413271);
+
+
+
+
+    async function getPastEvents(fromBlock,toBlock) {
+      const events = [];
+  const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
+
+     for (let blockNumber = fromBlock; blockNumber <= toBlock; blockNumber++) {
+          const block = await provider.getBlock(blockNumber);
+          const getBlockTrx = await provider.getBlockWithTransactions(blockNumber)
+          if(getBlockTrx.transactions.length) {
+            getBlockTrx.transactions.forEach(async(txn)=> {
+              const hash = txn.hash;
+               
+              const AllLog = await provider.getTransactionReceipt(hash);
+              
+              const sig = 'Transfer(address,address,uint256)'
+              if(AllLog.logs.length) {
+                AllLog.logs.forEach(async(log)=> {
+                  const utils = ethers.utils;
+                  const sigByte = utils.keccak256(utils.toUtf8Bytes(sig));
+                  // console.log(sigByte);
+                  // console.log(log.topics[0]);
+                  if(sigByte ==log.topics[0]){
+                    // const bihno = utils.defaultAbiCoder.decode(['uint256'],'0x0000000000000000000000000000000000000000000000008ac7230489e80000')[0].toString();
+                    
+                    console.log(txn);
+                  }
+                })}
+  
+            });
+          }
+      }
+    }
+  
+
+  getPastEvents(45413270,45413271);
