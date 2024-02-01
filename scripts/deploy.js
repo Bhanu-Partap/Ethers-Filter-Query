@@ -67,11 +67,17 @@ const ethers = require("ethers");
 require('dotenv').config()
 
 async function main(){
-  const provider = new ethers.providers.InfuraProvider("homestead",process.env.PROJECT_ID)
+  // const provider = new ethers.providers.InfuraProvider("homestead",process.env.PROJECT_ID)
+      const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
+
   // const receipt = await provider.getTransactionReceipt("0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a")
   // console.log(receipt);
-  const getBlock = await provider.getBlock(19132084)
-  console.log(getBlock);
+  // const getBlock = await provider.getBlock(19132084)  // For block tx
+  const getBlockTrx = await provider.getBlockWithTransactions(19132084)
+  console.log(getBlock.hash);
+  // console.log(getBlockTrx);
+
+
 
   // const signedTransaction = "0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a"
   // await provider.sendTransaction(signedTransaction)
