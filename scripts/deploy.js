@@ -64,14 +64,22 @@
 
   
 const ethers = require("ethers");
-// const usdtAbi = require("../USDT.json")
 require('dotenv').config()
 
 async function main(){
-  // const usdtAddress = process.env.USDT_ADDRESS;
   const provider = new ethers.providers.InfuraProvider("homestead",process.env.PROJECT_ID)
-  await provider.getTransactionReceipt("0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a")
+  const receipt = await provider.getTransactionReceipt("0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a")
+  console.log(receipt.topic);
+}
+
+main()
+
+
+
+// const usdtAbi = require("../USDT.json")
+
   
+  // const usdtAddress = process.env.USDT_ADDRESS;
 
   // const contract = new ethers.Contract(usdtAddress,usdtAbi, provider);
   // contract.on("Transfer",(from, to , value, event)=>{
@@ -84,7 +92,3 @@ async function main(){
   //   // console.log(JSON.stringify(info,null , 4));
   //   console.log(info);
   // })
-
-}
-
-main()
