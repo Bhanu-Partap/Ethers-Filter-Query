@@ -68,8 +68,10 @@ require('dotenv').config()
 
 async function main(){
   const provider = new ethers.providers.InfuraProvider("homestead",process.env.PROJECT_ID)
-  const receipt = await provider.getTransactionReceipt("0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a")
-  console.log(receipt);
+  // const receipt = await provider.getTransactionReceipt("0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a")
+  // console.log(receipt);
+  const getBlock = await provider.getBlock(19132084)
+  console.log(getBlock);
 
   // const signedTransaction = "0x5c2f1e48853d70702f199ff08fbefb229589ecc0c7ab5904d0e1583cd9feb98a"
   // await provider.sendTransaction(signedTransaction)
