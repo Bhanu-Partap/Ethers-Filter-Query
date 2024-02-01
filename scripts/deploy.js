@@ -71,10 +71,8 @@ const { JsonRpcProvider } = require("ethers");
 
 async function main(){
   // const usdtAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
-  const provider = new JsonRpcProvider("https://sepolia.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571",{
-    // network: "polygon-mumbai"
-    network: "sepolia",
-    chainId : 11155111
+  const provider = new JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571",{
+    network: "polygon-mumbai"
   })
 
   const contract = new ethers.Contract("0xdAC17F958D2ee523a2206206994597C13D831ec7",usdtAbi, provider);
