@@ -1,50 +1,55 @@
 const ethers = require("ethers")
 require('dotenv').config()
+// import abi from "../USDT.json"
+const abi = require("../USDT.json")
 
 
-// // ie: -> Flash(address,address,uint256,uint256,uint256,uint256)
-// // const getEventSignature = (eventName, abi) => {
-// //     const eventAbi = abi.find((entry) => entry.name === eventName);
-// //     const types = eventAbi.inputs.map((input) => input.type);
-// //     return `${eventName}(${types.join(',')})`;
-// // }
-
-// const main = async () => {
-//     // const provider = new ethers.providers.JsonRpcProvider(process.env.INFURA_URL)
-//     const main = async () => {
-// const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
-//     // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")  
-
-
-//     const eventSignature= 'Transfer(address,address,uint256)';
-//     const eventTopic   = ethers.utils.id(eventSignature);
-
-//     // const filter = {
-//     //     address: "0xd19397dc74793EfC319610c9deD95030Cd5A3020",
-//     //     // address: process.env.CONTRACT_ADDRESS,
-//     //     topics: [ethers.utils.id(eventTopic),],
-//     //     fromBlock: 44864744 ,
-//     //     toBlock: 44894181	,
-//     // };
-
-//     const filter = {
-//       address: "0xd19397dc74793EfC319610c9deD95030Cd5A3020",
-//       // address: process.env.CONTRACT_ADDRESS,
-//       topics: [eventTopic],
-//       fromBlock: 44864744 ,
-//       toBlock: 44894181	,
-//     };
-
-//     const listenToEvents =()=>{
-
-//     }
-
-//     console.log(filter);
-//     const logs =  provider.getLogs(filter);
-//     console.log(logs);
-
+// ie: -> Flash(address,address,uint256,uint256,uint256,uint256)
+// const getEventSignature = (eventName, abi) => {
+//     const eventAbi = abi.find((entry) => entry.name === eventName);
+//     const types = eventAbi.inputs.map((input) => input.type);
+//     return `${eventName}(${types.join(',')})`;
 // }
-// }
+
+
+    // const provider = new ethers.providers.JsonRpcProvider(process.env.INFURA_URL)
+    const main = async () => {
+    const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
+    // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")  
+
+
+    // const eventSignature='PairCreated(address, address, address, uint256)';
+
+    // const eventTopic   = ethers.utils.id(eventSignature);
+    const contract_address = "0xc35DADB65012eC5796536bD9864eD8773aBc74C4";
+    // console.log(contract_address);
+
+    const contract = new ethers.Contract(contract_address,abi , provider)
+    console.log(contract);
+    // const data =  contract.methods()
+    
+
+
+
+    // const filter = {
+    //     address: "0xd19397dc74793EfC319610c9deD95030Cd5A3020",
+    //     // address: process.env.CONTRACT_ADDRESS,
+    //     topics: [ethers.utils.id(eventTopic),],
+    //     fromBlock: 44864744 ,
+    //     toBlock: 44894181	,
+    // };
+
+    // const filter = {
+    //   // address: "0xd19397dc74793EfC319610c9deD95030Cd5A3020",
+      
+    //   topics: [eventTopic],
+    //   fromBlock: 44864744 ,
+    //   toBlock: 44894181	,
+    // };
+
+}
+
+main()
 
 
 
@@ -113,37 +118,6 @@ require('dotenv').config()
   // })
 
 
-// ==========Full one ................==============//
-
-// async function getPastEvents(fromBlock,toBlock) {
-//   const events = [];
-//   const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
-
-//  for (let blockNumber = fromBlock; blockNumber <= toBlock; blockNumber++) {
-//       const block = await provider.getBlock(blockNumber);
-//       const getBlockTrx = await provider.getBlockWithTransactions(blockNumber)
-//       if(getBlockTrx.transactions.length) {
-//         getBlockTrx.transactions.forEach(async(txn)=> {
-//           const hash = txn.hash;
-          
-//           const a = await provider.getTransactionReceipt(hash);
-//           console.log(a.logs[0]);
-
-//           const sig = 'Transfer(address,address,uint256)'
-
-//           if(a.logs.length) {
-//             a.logs.forEach(async(event)=> {
-//               const utils = ethers.utils;
-//               const fnSelector  = keccak256(utils.toUtf8Bytes(sig));
-//               if(sig == fnSelector ){
-
-//               }
-//             })}
-
-//         });
-//       }
-//   }
-// }
 
 //   const getTxn = async () => {
 //         const a =  await provider.getTransactionReceipt('0xba770b460f5e52565daf1ec3cd189d8c2d07c45fd7a5cd822d885cf4c1f2d031');
@@ -161,39 +135,38 @@ require('dotenv').config()
 
 
 
-    async function getPastEvents(fromBlock,toBlock) {
-    const events = [];
-    const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
-
-     for (let blockNumber = fromBlock; blockNumber <= toBlock; blockNumber++) {
-          const block = await provider.getBlock(blockNumber);
-          const getBlockTrx = await provider.getBlockWithTransactions(blockNumber)
-          if(getBlockTrx.transactions.length) {
-            getBlockTrx.transactions.forEach(async(txn)=> {
-              const hash = txn.hash;
-              provider.waitForTransaction(hash);
+  //   async function getPastEvents(fromBlock,toBlock) {
+  //   const events = [];
+  //   const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
+  //    for (let blockNumber = fromBlock; blockNumber <= toBlock; blockNumber++) {
+  //         const block = await provider.getBlock(blockNumber);
+  //         const getBlockTrx = await provider.getBlockWithTransactions(blockNumber)
+  //         if(getBlockTrx.transactions.length) {
+  //            getBlockTrx.transactions.forEach(async(txn)=> {
+  //             const hash = txn.hash;
+  //             provider.waitForTransaction(hash);
                
-              const AllLog = await provider.getTransactionReceipt(hash);
+  //             const AllLog = await provider.getTransactionReceipt(hash);
               
-              // const sig = 'Transfer(address,address,uint256)'
-              const sig = 'PairCreated (index_topic_1 address , index_topic_2 address , address , uint256)'
-              if(AllLog.logs.length) {
-                AllLog.logs.forEach(async(log)=> {
-                  const utils = ethers.utils;
-                  const sigByte = utils.keccak256(utils.toUtf8Bytes(sig));
-                  // console.log(sigByte);
-                  // console.log(log.topics[0]);
-                  if(sigByte ==log.topics[0]){
-                    // const bihno = utils.defaultAbiCoder.decode(['uint256'],'0x0000000000000000000000000000000000000000000000008ac7230489e80000')[0].toString();
+  //             // const sig = 'Transfer(address,address,uint256)'
+  //             const sig = 'PairCreated (index_topic_1 address , index_topic_2 address , address , uint256)'
+  //             if(AllLog.logs.length) {
+  //               AllLog.logs.forEach(async(log)=> {
+  //                 const utils = ethers.utils;
+  //                 const sigByte = utils.keccak256(utils.toUtf8Bytes(sig));
+  //                 // console.log(sigByte);
+  //                 // console.log(log.topics[0]);
+  //                 if(sigByte ==log.topics[0]){
+  //                   // const bihno = utils.defaultAbiCoder.decode(['uint256'],'0x0000000000000000000000000000000000000000000000008ac7230489e80000')[0].toString();
                     
-                    console.log(txn);
-                  }
-                })}
+  //                   console.log(txn);
+  //                 }
+  //               })}
   
-            });
-          }
-      }
-    }
+  //           });
+  //         }
+  //     }
+  //   }
   
 
-  getPastEvents(45413270,45413271);
+  // getPastEvents(45413270,45413271);
