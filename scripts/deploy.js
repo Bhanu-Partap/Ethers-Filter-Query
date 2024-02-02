@@ -26,18 +26,19 @@ const abi = require("../USDT.json")
 
     const contract = new ethers.Contract(contract_address,abi , provider)
     // let filter = await contract.filters(eventTopic)
-    const block = await provider.getBlockWithTransactions(45383190);
+    const block = await provider.getBlockWithTransactions(contract_address.block);
     // console.log(block.transactions);
-    console.log("Block Number :",block.transactions[1].blockNumber);
-    console.log("Nonce :",block.transactions[1].nonce);
-    console.log("Block Hash :",block.transactions[1].blockHash);
+    console.log("Block Number :",block.transactions[0].blockNumber);
+    console.log("Nonce :",block.transactions[0].nonce);
+    console.log("Block Hash :",block.transactions[0].hash);
     const GasUsed= block.gasUsed
     const StringGasUsed = GasUsed.toString() 
-    console.log(StringGasUsed);
-    const GasPRice = block.transactions.gasPrice
-    // const ReadableGasPrice = GasPRice
+    // console.log(StringGasUsed);
+    const GasPRice = block.transactions[0];
+    const ReadableGasPrice = GasPRice.gasPrice
+    // console.log(GasPRice);
     const totalGasConsumed = StringGasUsed * ReadableGasPrice
-    console.log(totalGasConsumed);
+    // console.log(totalGasConsumed);
     // const readableForm = block.gasUsed;
     console.log("Total Gas Consumed :",totalGasConsumed.toString());
     
