@@ -29,18 +29,26 @@ const abi = require("../USDT.json")
     const block = await provider.getBlockWithTransactions(contract_address.block);
     // console.log(block.transactions);
     console.log("Block Number :",block.transactions[0].blockNumber);
+    console.log("From:",block.transactions[0].from);
+    console.log("To :",block.transactions[0].to);
     console.log("Nonce :",block.transactions[0].nonce);
-    console.log("Block Hash :",block.transactions[0].hash);
-    const GasUsed= block.gasUsed
-    const StringGasUsed = GasUsed.toString() 
+    console.log("Transaction Hash :",block.transactions[0].hash);
+    const valueData = await (await block.transactions[0].wait()).gasUsed
+    console.log("Gas Used :", valueData.toString());
+    // const GasUsed= block.gasUsed
+    // const StringGasUsed = GasUsed.toString() 
     // console.log(StringGasUsed);
-    const GasPRice = block.transactions[0];
-    const ReadableGasPrice = GasPRice.gasPrice
+    const GasPRice = block.transactions[0].gasPrice;
+    const ReadableGasPrice = GasPRice.toString()
     // console.log(GasPRice);
-    const totalGasConsumed = StringGasUsed * ReadableGasPrice
+    const GasConsumed = valueData * ReadableGasPrice
+    const totalGasConsumed = GasConsumed / 10**18
     // console.log(totalGasConsumed);
     // const readableForm = block.gasUsed;
     console.log("Total Gas Consumed :",totalGasConsumed.toString());
+    // const Value = block.transactions[0];
+    // const ReadableGasPrice = GasPRice.gasPrice
+
     
     
 
