@@ -18,15 +18,19 @@ const abi = require("../USDT.json")
     // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")  
 
 
-    // const eventSignature='PairCreated(address, address, address, uint256)';
+    const eventSignature='PairCreated(address, address, address, uint256)';
 
-    // const eventTopic   = ethers.utils.id(eventSignature);
+    const eventTopic   = ethers.utils.id(eventSignature);
     const contract_address = "0xc35DADB65012eC5796536bD9864eD8773aBc74C4";
     // console.log(contract_address);
 
     const contract = new ethers.Contract(contract_address,abi , provider)
-    console.log(contract);
-    // const data =  contract.methods()
+    // let filter = await contract.filters(eventTopic)
+    const block = await provider.getBlockWithTransactions(45383190);
+    // let filter = await contract.get
+    const readableForm= block.gasLimit
+    console.log(readableForm.toString());
+    
     
 
 
