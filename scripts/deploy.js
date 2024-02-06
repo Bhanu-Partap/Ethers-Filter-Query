@@ -17,27 +17,29 @@ const abi = require("../USDT.json")
     const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
     // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")  
 
-      const latestBlock = await provider.getBlock("latest")
+    
+    // const latestBlock = await provider.getBlock("latest")
+    // console.log(latestBlock.transactions[0]);
+    // console.log(latestBlock.number);
 
-      console.log(latestBlock.transactions[0]);
-      console.log(latestBlock.number);
     // const eventSignature='PairCreated(address, address, address, uint256)';
     // const eventTopic   = ethers.utils.id(eventSignature);
-    // const contract_address = "0xc35DADB65012eC5796536bD9864eD8773aBc74C4";
-    // const block = await provider.getBlockWithTransactions(contract_address.block);
 
-    // console.log("Block Number :",block.transactions[0].blockNumber);
-    // console.log("From:",block.transactions[0].from);
-    // console.log("To :",block.transactions[0].to);
-    // console.log("Nonce :",block.transactions[0].nonce);
-    // console.log("Transaction Hash :",block.transactions[0].hash);
-    // const valueData = await (await block.transactions[0].wait()).gasUsed
-    // console.log("Gas Used :", valueData.toString());
-    // const GasPRice = block.transactions[0].gasPrice;
-    // const ReadableGasPrice = GasPRice.toString()
-    // const GasConsumed = valueData * ReadableGasPrice
-    // const totalGasConsumed = GasConsumed / 10**18
-    // console.log("Total Gas Consumed :",totalGasConsumed.toString());
+    const contract_address = "0xc35DADB65012eC5796536bD9864eD8773aBc74C4";
+    const block = await provider.getBlockWithTransactions(contract_address.block);
+
+    console.log("Block Number :",block.transactions[0].blockNumber);
+    console.log("From:",block.transactions[0].from);
+    console.log("To :",block.transactions[0].to);
+    console.log("Nonce :",block.transactions[0].nonce);
+    console.log("Transaction Hash :",block.transactions[0].hash);
+    const valueData = await (await block.transactions[0].wait()).gasUsed
+    console.log("Gas Used :", valueData.toString());
+    const GasPRice = block.transactions[0].gasPrice;
+    const ReadableGasPrice = GasPRice.toString()
+    const GasConsumed = valueData * ReadableGasPrice
+    const totalGasConsumed = GasConsumed / 10**18
+    console.log("Total Gas Consumed :",totalGasConsumed.toString());
     }
 
 main()
