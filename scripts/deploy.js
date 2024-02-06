@@ -25,6 +25,8 @@ const abi = require("../USDT.json")
     // const eventSignature='PairCreated(address, address, address, uint256)';
     // const eventTopic   = ethers.utils.id(eventSignature);
 
+// =================== Gas Fetching from the latedt block=========================
+
     const contract_address = "0xc35DADB65012eC5796536bD9864eD8773aBc74C4";
     const block = await provider.getBlockWithTransactions(contract_address.block);
 
