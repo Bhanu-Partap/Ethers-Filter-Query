@@ -16,7 +16,6 @@ const main = async () => {
   const web3 = new Web3(
     "https://sepolia.infura.io/v3/ace13403824d4f809e011d9d547a4aa1"
   );
-
   // =================== Gas Fetching from the latest block=========================
 
   // const contract_address = "0x723f2e4bE4e62e434a55b6001dEFAFc34F75136C";
@@ -43,7 +42,7 @@ const main = async () => {
       const signature = "Swap(address,address,address,uint256,uint256,uint256)";
       const eventSignature = log.topics[0];
       console.log("Event signature:", eventSignature);
-      if (eventSignature === web3.utils.keccak256(signature)) {
+      if (eventSignature === web3.utils.keccak256(signature)){
         const data1 = web3.eth.abi.decodeParameter("uint256", log.data);
         // const data7 = web3.eth.abi.decodeParameter("uint256", log.address[0]);
         const data2 = web3.eth.abi.decodeParameter("uint256", log.topics[1]);
@@ -54,7 +53,7 @@ const main = async () => {
       }
     });
   } else {
-    console.log("Transaction receipt not found.");
+    console.log("Transaction receipt not found");
   }
 };
 
