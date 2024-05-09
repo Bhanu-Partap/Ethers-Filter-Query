@@ -14,7 +14,7 @@ const abi = require("../USDT.json")
 
     // const provider = new ethers.providers.JsonRpcProvider(process.env.INFURA_URL)
     const main = async () => {
-    const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")
+    const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/ace13403824d4f809e011d9d547a4aa1")
     // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/96821ac4b63e4f349f5b25d47e91f571")  
 
     
@@ -25,9 +25,9 @@ const abi = require("../USDT.json")
     // const eventSignature='PairCreated(address, address, address, uint256)';
     // const eventTopic   = ethers.utils.id(eventSignature);
 
-// =================== Gas Fetching from the latedt block=========================
+// =================== Gas Fetching from the latest block=========================
 
-    const contract_address = "0xc35DADB65012eC5796536bD9864eD8773aBc74C4";
+    const contract_address = "0x723f2e4bE4e62e434a55b6001dEFAFc34F75136C";
     const block = await provider.getBlockWithTransactions(contract_address.block);
 
     console.log("Block Number :",block.transactions[0].blockNumber);
@@ -39,7 +39,7 @@ const abi = require("../USDT.json")
     console.log("Gas Used :", valueData.toString());
     const GasPRice = block.transactions[0].gasPrice;
     const ReadableGasPrice = GasPRice.toString()
-    const GasConsumed = valueData * ReadableGasPrice
+    const   GasConsumed = valueData * ReadableGasPrice
     const totalGasConsumed = GasConsumed / 10**18
     console.log("Total Gas Consumed :",totalGasConsumed.toString());
     }
@@ -185,3 +185,5 @@ main()
   
 
   // getPastEvents(45413270,45413271);
+
+
