@@ -39,17 +39,21 @@ const main = async () => {
   
   if (receipt) {
     receipt.logs.forEach((log) => {
-      const signature = "Swap(address,address,address,uint256,uint256,uint256)";
+      const signature ="Swap(address,address,address,uint256,uint256,uint256)";
+      // const signature = "Transfer(address,address,uint256)";
       const eventSignature = log.topics[0];
       console.log("Event signature:", eventSignature);
-      if (eventSignature === web3.utils.keccak256(signature)){
-        const data1 = web3.eth.abi.decodeParameter("uint256", log.data);
-        // const data7 = web3.eth.abi.decodeParameter("uint256", log.address[0]);
-        const data2 = web3.eth.abi.decodeParameter("uint256", log.topics[1]);
+      const convert = web3.eth.abi.encodeEventSignature(signature)
+    // console.log(convert)
+      if (eventSignature === convert){
+        // const data1 = web3.eth.abi.decodeParameter("uint256", log.data);
+        const data2 = web3.eth.abi.decodeParameter("address", eventSignature.data);
         const data3 = web3.eth.abi.decodeParameter("uint256", log.topics[2]);
         const data4 = web3.eth.abi.decodeParameter("uint256", log.topics[3]);
         const data5 = web3.eth.abi.decodeParameter("uint256", log.topics[4]);
-        console.log("Data from event:", data1, data2, data3, data4, data5);
+        const data6 = web3.eth.abi.decodeParameter("uint256", log.topics[5]);
+        const data7 = web3.eth.abi.decodeParameter("uint256", log.topics[6]);
+        console.log("Data from event:", data2, data3, data4, data5,data6,data7);
       }
     });
   } else {
